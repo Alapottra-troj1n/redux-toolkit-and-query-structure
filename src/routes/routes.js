@@ -6,6 +6,8 @@ import Home from "../pages/Home";
 import TopRated from "../pages/TopRated";
 import Users from "../pages/Users";
 import Admin from "../pages/Admin";
+import AddProduct from "../pages/Dashboard/AddProduct";
+import Dashboard from "../layout/Dashboard/Dashboard";
 
 const routes = createBrowserRouter([
   {
@@ -41,6 +43,16 @@ const routes = createBrowserRouter([
       {
         path: "admin",
         element: <Admin />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "add-product",
+        element: <AddProduct />,
       },
     ],
   },
