@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle, toggleBrands } from "../features/filters/filterSlice";
+import { getProducts } from "../features/products/productsSlice";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
+  const {products, isLoading, isError, error} = useSelector(state => state.products)
   const brands = useSelector(state => state.filter.brands);
   const stock = useSelector(state => state.filter.stock);
   const dispatch = useDispatch();
   let content;
 
   useEffect(() => {
-    fetch("products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+   
+    dispatch(getProducts())
 
   }, []);
 
@@ -24,6 +24,10 @@ const Home = () => {
   }
   if(stock){
     content = products.filter((product) => product.status === true).map((product) => <ProductCard product={product} />)
+  }
+
+  if(isLoading){
+    return <div>Loading...</div>
   }
 
 
