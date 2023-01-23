@@ -8,6 +8,7 @@ import Users from "../pages/Users";
 import Admin from "../pages/Admin";
 import AddProduct from "../pages/Dashboard/AddProduct";
 import Dashboard from "../layout/Dashboard/Dashboard";
+import ProductList from "../pages/Dashboard/Products";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const routes = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
     children: [
+      {
+        path: "/dashboard",
+        element: <ProductList />,
+      },
       {
         path: "add-product",
         element: <AddProduct />,
