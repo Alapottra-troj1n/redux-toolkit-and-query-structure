@@ -4,7 +4,6 @@ import About from "../pages/About";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import TopRated from "../pages/TopRated";
-import Users from "../pages/Users";
 import Admin from "../pages/Admin";
 import AddProduct from "../pages/Dashboard/AddProduct";
 import Dashboard from "../layout/Dashboard/Dashboard";
@@ -37,10 +36,6 @@ const routes = createBrowserRouter([
     path: "/users",
     element: <Main />,
     children: [
-      {
-        path: "/users",
-        element: <Users />,
-      },
       {
         path: "admin",
         element: <Admin />,
