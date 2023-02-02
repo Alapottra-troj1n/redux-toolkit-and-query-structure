@@ -1,13 +1,34 @@
 import { useDispatch } from "react-redux";
+import { useGetProductsQuery, useRemoveProductMutation } from "../../features/api-rtk/productAPI";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 
 const ProductList = () => {
-    const dispatch = useDispatch();
-    let products;
+
+    const { data, isLoading } = useGetProductsQuery();
+
+    const products = data?.data;
+    const [removeProduct, { isSuccess , isLoading: isLoadingDelete  } ] = useRemoveProductMutation();
 
 
 
+    useEffect(()=> {
 
+        if(isLoadingDelete){
+            toast.loading('Removing Product...', {id: "REMOVE_PRODUCT"})
+        }
+        if(isSuccess){
+            toast.success('Product Removed Successfully', {id: "REMOVE_PRODUCT"})
+        }
+        
+    },[isLoadingDelete, isSuccess])
+
+    if(isLoading) {
+        return <p>Loading...</p>;
+    }
+
+    
     return (
         <div class='flex flex-col justify-center items-center h-full w-full '>
             <div class='w-full max-w-7xl mx-auto rounded-lg  bg-white shadow-lg border border-gray-200'>
@@ -66,7 +87,7 @@ const ProductList = () => {
                                     </td>
                                     <td class='p-2'>
                                         <div class='flex justify-center'>
-                                            <button >
+                                            <button onClick={() => removeProduct(_id)} >
                                                 <svg
                                                     class='w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1'
                                                     fill='none'

@@ -1,9 +1,27 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useAddProductMutation } from "../../features/api-rtk/productAPI";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 
 const AddProduct = () => {
   const { register, handleSubmit, reset } = useForm();
+
+  const [ postProduct, {isSuccess,isLoading } ] = useAddProductMutation();
+
+
+  useEffect(() => {
+
+    if(isLoading) {
+      toast.loading('Loading',{id: 'ADD_PRODUCT'})
+    }
+    if(isSuccess) {
+      toast.success('Successfully added product',{id: 'ADD_PRODUCT'});
+      reset();
+    }
+
+  },[isLoading, isSuccess, reset])
 
   const submit = async(data) => {
 
@@ -19,7 +37,14 @@ const AddProduct = () => {
         data.keyFeature4,
       ],
       spec: [],
+
+    
+
+
+
     };
+
+    postProduct(product)
 
 
     
@@ -135,8 +160,9 @@ const AddProduct = () => {
           />
         </div>
 
-        <div className='flex justify-between items-center w-full'>
+        <div  className='flex justify-between items-center w-full'>
           <button
+          onClick={ () => submit() }
             className=' px-4 py-3 bg-indigo-500 rounded-md font-semibold text-white text-lg disabled:bg-gray-500'
             type='submit'
           >

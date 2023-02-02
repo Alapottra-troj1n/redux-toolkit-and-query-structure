@@ -3,7 +3,8 @@ import { useGetProductsQuery } from "../features/api-rtk/productAPI";
 
 const Home = () => {
   let content;
-  const {isLoading, isError, isSuccess, data  } = useGetProductsQuery();
+const {isLoading, isError, data, error  } = useGetProductsQuery();
+  console.log(error)
 
   const products = data?.data;
 
@@ -16,6 +17,10 @@ const Home = () => {
 
   if(isLoading){
     return <div>Loading...</div>
+  }
+
+  if(isError){
+    return <p>Somethin went wrong</p>
   }
 
 
